@@ -52,12 +52,17 @@ generateBtn.addEventListener("click", () => {
 	uasp = document.getElementById("uasp");
 	energy_saving = document.getElementById("energy_saving");
 	kemu = document.getElementById("4kemu");
+	hdd_serial = document.getElementById("hdd_serial");
 	to = document.getElementById("slider").value * 60;
 	z = atob(document.getElementById("data").innerHTML).split("");
 	z[0xc4e7] = String.fromCharCode(
-		(usb_storage.checked << 7) | (uasp.checked << 6) | (kemu.checked << 5) | 0
+		(usb_storage.checked << 7) | (uasp.checked << 6) | (kemu.checked << 5) | ((z[0xc4e7] & 0x1F)
 	);
-
+	if (hdd_serial.checked) {
+		for (x=0xc404;x<0xc4e0;x++) z[x]='\x00';
+	} else {
+		for (x=0xc456;x<0xc466;x++) z[x]=String.fromCharCode(Math.random()*10+48);
+	}
 	z[0xc4f2] = String.fromCharCode(0x30 | (energy_saving.checked << 3));
 	z[0xc4f6] = String.fromCharCode(energy_saving.checked*255 & (to / 256));
 	z[0xc4f7] = String.fromCharCode(energy_saving.checked*255 & to % 256);

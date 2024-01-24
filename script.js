@@ -56,7 +56,7 @@ generateBtn.addEventListener("click", () => {
 	to = document.getElementById("slider").value * 60;
 	z = atob(document.getElementById("data").innerHTML).split("");
 	z[0xc4e7] = String.fromCharCode(
-		(usb_storage.checked << 7) | (uasp.checked << 6) | (kemu.checked << 5) | (z[0xc4e7] & 0x1F)
+		(usb_storage.checked << 7) | (uasp.checked << 6) | (kemu.checked << 5) | (z[0xc4e7].charCodeAt(0) & 0x1F)
 	);
 	if (hdd_serial.checked) {
 		for (x=0xc404;x<0xc4e0;x++) z[x]='\x00';

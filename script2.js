@@ -68,7 +68,7 @@ generateBtn.addEventListener("click", () => {
 	z[0xc4f7] = String.fromCharCode(energy_saving.checked*255 & to % 256);
 	b = new Uint8Array(z.length);
 	z.map((e, i) => (b[i] = e.charCodeAt(0)));
-	dl(b, "JMS579_Z_215.bin");
+	dl(b, "JMS579_Z_415.bin");
 });
 
 document.getElementById("energy_saving").onclick = (e) => {

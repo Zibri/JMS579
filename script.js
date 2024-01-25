@@ -59,8 +59,9 @@ generateBtn.addEventListener("click", () => {
 		(usb_storage.checked << 7) | (uasp.checked << 6) | (kemu.checked << 5) | (z[0xc4e7].charCodeAt(0) & 0x1F)
 	);
 	if (hdd_serial.checked) {
-		for (x=0xc404;x<0xc4e0;x++) z[x]='\x00';
+		z[0xc454]=String.fromCharCode(0);
 	} else {
+		z[0xc454]=String.fromCharCode(0x22);
 		for (x=0xc456;x<0xc466;x++) z[x]=String.fromCharCode(Math.random()*10+48);
 	}
 	z[0xc4f2] = String.fromCharCode(0x30 | (energy_saving.checked << 3));

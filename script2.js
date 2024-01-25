@@ -59,16 +59,17 @@ generateBtn.addEventListener("click", () => {
 		(usb_storage.checked << 7) | (uasp.checked << 6) | (kemu.checked << 5) | (z[0xc4e7].charCodeAt(0) & 0x1F)
 	);
   if (hdd_serial.checked) {
-    for (x=0xc404;x<0xc4e0;x++) z[x]='\x00';
+    z[0xc454]=0;
   } else {
-    for (x=0xc456;x<0xc466;x++) z[x]=String.fromCharCode(Math.random()*10+48);
+	  z[0xc454]=0x22;
+	  for (x=0xc456;x<0xc466;x++) z[x]=String.fromCharCode(Math.random()*10+48);
   }
 	z[0xc4f2] = String.fromCharCode(0x20 | (energy_saving.checked << 3));
 	z[0xc4f6] = String.fromCharCode(energy_saving.checked*255 & (to / 256));
 	z[0xc4f7] = String.fromCharCode(energy_saving.checked*255 & to % 256);
 	b = new Uint8Array(z.length);
 	z.map((e, i) => (b[i] = e.charCodeAt(0)));
-	dl(b, "JMS579_Z_415.bin");
+	dl(b, "JMS579_Z_215.bin");
 });
 
 document.getElementById("energy_saving").onclick = (e) => {

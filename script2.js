@@ -48,15 +48,16 @@ const generateBtn = document.getElementById("generate");
 
 // When Generate is clicked Password id generated.
 generateBtn.addEventListener("click", () => {
-	usb_storage = document.getElementById("usb_storage");
+	multisec = document.getElementById("multisec");
 	uasp = document.getElementById("uasp");
 	energy_saving = document.getElementById("energy_saving");
         hdd_serial = document.getElementById("hdd_serial");
-	kemu = document.getElementById("4kemu");
+	ken = document.getElementById("4ken");
+	ledinv = document.getElementById("ledinv");
 	to = document.getElementById("slider").value * 60;
 	z = atob(document.getElementById("data").innerHTML).split("");
 	z[0xc4e7] = String.fromCharCode(
-		(usb_storage.checked << 7) | (uasp.checked << 6) | (kemu.checked << 5) | (z[0xc4e7].charCodeAt(0) & 0x1F)
+		(!ken.checked << 7) | (uasp.checked << 6) | (multisec.checked << 5) | (z[0xc4e7].charCodeAt(0) & 0x1F)
 	);
   if (hdd_serial.checked) {
     z[0xc454]=String.fromCharCode(0);
@@ -64,12 +65,12 @@ generateBtn.addEventListener("click", () => {
 	  z[0xc454]=String.fromCharCode(0x22);
 	  for (x=0xc456;x<0xc466;x++) z[x]=String.fromCharCode(Math.random()*10+48);
   }
-	z[0xc4f2] = String.fromCharCode(0x20 | (energy_saving.checked << 3));
+	z[0xc4f2] = String.fromCharCode(0x50 | (energy_saving.checked << 3) | (!ledinv.checked << 5));
 	z[0xc4f6] = String.fromCharCode(energy_saving.checked*255 & (to / 256));
 	z[0xc4f7] = String.fromCharCode(energy_saving.checked*255 & to % 256);
 	b = new Uint8Array(z.length);
 	z.map((e, i) => (b[i] = e.charCodeAt(0)));
-	dl(b, "JMS579_Z_215.bin");
+	dl(b, "JMS579_Z_515.bin");
 });
 
 document.getElementById("energy_saving").onclick = (e) => {
